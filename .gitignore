@@ -11,6 +11,8 @@
 # generated files
 bin/
 gen/
+obj/
+libs/armeabi/
 
 # Local configuration file (sdk path, etc)
 local.properties
@@ -18,3 +20,13 @@ local.properties
 # Eclipse project files
 .classpath
 .project
+
+# 
+*.orig
+*~
+*.swp
+
+#
+*.o
+*.so
+*.a
