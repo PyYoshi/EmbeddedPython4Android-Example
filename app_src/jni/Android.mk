@@ -1,11 +1,8 @@
-LOCAL_PATH := $(call my-dir)
- 
-include $(CLEAR_VARS)
+LOCAL_PATH:= $(call my-dir)
+subdir_makefiles := \
+    $(LOCAL_PATH)/libcrypt/Android.mk \
+    $(LOCAL_PATH)/sqlite3/Android.mk \
+    $(LOCAL_PATH)/openssl/Android.mk \
+    $(LOCAL_PATH)/load_python/Android.mk
 
-LOCAL_PRELINK_MODULE := false
-LOCAL_LDLIBS    := -llog
- 
-LOCAL_MODULE    := LoadPython
-LOCAL_SRC_FILES := LoadPython.c
- 
-include $(BUILD_SHARED_LIBRARY)
+include $(subdir_makefiles)
