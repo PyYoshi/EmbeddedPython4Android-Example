@@ -38,6 +38,15 @@ cd $BUILDDIR
 
 export PYTHONSRC=$BUILDDIR/Python-arm
 
+export CFLAGS="-mandroid $OFLAG -fomit-frame-pointer --sysroot $NDKPLATFORM -DNO_MALLINFO=1"
+if [ $ARCH == "armeabi-v7a" ]; then
+    CFLAGS+=" -march=armv7-a -mfloat-abi=softfp -mfpu=vfp -mthumb"
+fi
+export CXXFLAGS="$CFLAGS"
+export CC="arm-linux-androideabi-gcc $CFLAGS"
+export CXX="arm-linux-androideabi-g++ $CXXFLAGS"
+export AR="arm-linux-androideabi-ar"
+
 if [ ! -e "$PYTHONSRC" ]; then
     tar zxvf Python-2.7.2.tgz
     mv $BUILDDIR/Python-2.7.2 $PYTHONSRC
@@ -63,7 +72,7 @@ if [ ! -e "$PYTHONSRC" ]; then
     cp $BUILDDIR/patch/build_py4a2.7.2.mk $PYTHONSRC/Android.mk
 fi
 
-rm -rf $BUILDDIR/output*
+rm -rf $BUILDDIR/output* $BUILDDIR/include
 mkdir -p $BUILDDIR/output
 export OUT=$BUILDDIR/output
 
@@ -84,3 +93,4 @@ done
 cp $(find ${PYTHONSRC}/Lib/ -maxdepth 1 -type f) ${OUT}/usr/lib/python2.7/
 cp -r ${PYTHONSRC}/Include/* ${OUT}/usr/include/python2.7/
 cp ${PYTHONSRC}/pyconfig.h ${OUT}/usr/include/python2.7/
+cp -r ${OUT}/usr/include/python2.7/ $BUILDDIR/include/
