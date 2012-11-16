@@ -121,12 +121,5 @@ LOCAL_SRC_FILES := \
 
 LOCAL_MODULE := python2.7
 
-$(call __ndk_info, Building libpython2.7)
-$(call __ndk_info, PATH: $(LOCAL_PATH))
-$(call __ndk_info, MODULE: $(LOCAL_MODULE))
-$(call __ndk_info, FILENAME: $(LOCAL_MODULE_FILENAME))
-$(call __ndk_info, SRC: $(LOCAL_SRC_FILES))
-$(call __ndk_info, INCLUDES: $(LOCAL_C_INCLUDES))
-$(call __ndk_info, EXPORT: $(LOCAL_EXPORT_C_INCLUDES))
-
-include $(BUILD_SHARED_LIBRARY)
+#include $(BUILD_SHARED_LIBRARY)
+include $(BUILD_STATIC_LIBRARY)
