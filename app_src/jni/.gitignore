@@ -4,6 +4,7 @@ output/
 Python-host/
 Python-arm/
 prebuilt/
+include/
 
 hostpgen
 hostpython
