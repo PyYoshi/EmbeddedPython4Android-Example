@@ -1,0 +1,100 @@
+diff --git a/openssl/Android.mk b/openssl/Android.mk
+index 741123b..f61e8dd 100644
+--- a/openssl/Android.mk
++++ b/openssl/Android.mk
+@@ -1,9 +1,16 @@
+ LOCAL_PATH := $(call my-dir)
+ 
++local_c_includes := \
++	$(LOCAL_PATH) \
++	$(LOCAL_PATH)/crypto \
++	$(LOCAL_PATH)/crypto/asn1 \
++	$(LOCAL_PATH)/crypto/evp \
++	$(LOCAL_PATH)/include \
++	$(LOCAL_PATH)/include/openssl
++
+ subdirs := $(addprefix $(LOCAL_PATH)/,$(addsuffix /Android.mk, \
+ 		crypto \
+ 		ssl \
+-		apps \
+ 	))
+ 
+ include $(subdirs)
+diff --git a/openssl/apps/Android.mk b/openssl/apps/Android.mk
+index 002025a..260e6eb 100644
+--- a/openssl/apps/Android.mk
++++ b/openssl/apps/Android.mk
+@@ -59,9 +59,9 @@ LOCAL_SHARED_LIBRARIES := \
+ 	libssl \
+ 	libcrypto 
+ 
+-LOCAL_C_INCLUDES := \
+-	$(NDK_PROJECT_PATH) \
+-	$(NDK_PROJECT_PATH)/include
++#LOCAL_C_INCLUDES := \
++#	$(NDK_PROJECT_PATH) \
++#	$(NDK_PROJECT_PATH)/include
+ 
+ LOCAL_CFLAGS := -DMONOLITH
+ 
+diff --git a/openssl/crypto/Android.mk b/openssl/crypto/Android.mk
+index 0487137..650356b 100644
+--- a/openssl/crypto/Android.mk
++++ b/openssl/crypto/Android.mk
+@@ -470,12 +470,12 @@ local_src_files := \
+ 	x509v3/v3_utl.c \
+ 	x509v3/v3err.c
+ 
+-local_c_includes := \
+-	$(NDK_PROJECT_PATH) \
+-	$(NDK_PROJECT_PATH)/crypto/asn1 \
+-	$(NDK_PROJECT_PATH)/crypto/evp \
+-	$(NDK_PROJECT_PATH)/include \
+-	$(NDK_PROJECT_PATH)/include/openssl
++#local_c_includes := \
++#	$(NDK_PROJECT_PATH) \
++#	$(NDK_PROJECT_PATH)/crypto/asn1 \
++#	$(NDK_PROJECT_PATH)/crypto/evp \
++#	$(NDK_PROJECT_PATH)/include \
++#	$(NDK_PROJECT_PATH)/include/openssl
+ 
+ local_c_flags := -DNO_WINDOWS_BRAINDEATH
+ 
+diff --git a/openssl/ssl/Android.mk b/openssl/ssl/Android.mk
+index 6cc86cd..55f0ba1 100644
+--- a/openssl/ssl/Android.mk
++++ b/openssl/ssl/Android.mk
+@@ -1,9 +1,9 @@
+ LOCAL_PATH:= $(call my-dir)
+ 
+-local_c_includes := \
+-	$(NDK_PROJECT_PATH) \
+-	$(NDK_PROJECT_PATH)/include \
+-	$(NDK_PROJECT_PATH)/crypto
++#local_c_includes := \
++#	$(NDK_PROJECT_PATH) \
++#	$(NDK_PROJECT_PATH)/include \
++#	$(NDK_PROJECT_PATH)/crypto
+ 
+ local_src_files:= \
+ 	s2_meth.c \
+@@ -65,11 +65,11 @@ ifeq ($(WITH_HOST_DALVIK),true)
+ endif
+ 
+ # ssltest
+-include $(CLEAR_VARS)
+-include $(LOCAL_PATH)/../android-config.mk
+-LOCAL_SRC_FILES:= ssltest.c
+-LOCAL_C_INCLUDES += $(local_c_includes)
+-LOCAL_SHARED_LIBRARIES := libssl libcrypto
+-LOCAL_MODULE:= ssltest
+-LOCAL_MODULE_TAGS := optional
+-include $(BUILD_EXECUTABLE)
++#include $(CLEAR_VARS)
++#include $(LOCAL_PATH)/../android-config.mk
++#LOCAL_SRC_FILES:= ssltest.c
++#LOCAL_C_INCLUDES += $(local_c_includes)
++#LOCAL_SHARED_LIBRARIES := libssl libcrypto
++#LOCAL_MODULE:= ssltest
++#LOCAL_MODULE_TAGS := optional
++#include $(BUILD_EXECUTABLE)
