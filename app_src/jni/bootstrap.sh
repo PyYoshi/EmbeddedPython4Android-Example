@@ -60,6 +60,7 @@ if [ ! -e "$PYTHONSRC" ]; then
     mv temp pyconfig.h
     
     $HOSTPGEN $PYTHONSRC/Grammar/Grammar $PYTHONSRC/Include/graminit.h $PYTHONSRC/Python/graminit.c
+    cp $BUILDDIR/patch/build_py4a2.7.2.mk $PYTHONSRC/Android.mk
 fi
 
 rm -rf $BUILDDIR/output*
