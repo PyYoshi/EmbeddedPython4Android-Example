@@ -1,0 +1,1 @@
+rm -rf Python-arm Python-host include openssl output prebuilt Python-2.7.2.tgz hostpgen hostpython
