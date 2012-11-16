@@ -24,7 +24,7 @@ fi
 if [ ! -e "$BUILDDIR/hostpython" -a ! -e "$BUILDDIR/hostpgen" ]; then
     cd "$BUILDDIR/Python-host"
     ./configure --prefix="$BUILDDIR/prebuilt"
-    make $MAKE_JOB_WORKERS
+    make -j$MAKE_JOB_WORKERS
     make install
     mv python "$BUILDDIR/hostpython"
     mv Parser/pgen "$BUILDDIR/hostpgen"
