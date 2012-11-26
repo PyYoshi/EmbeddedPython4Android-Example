@@ -47,6 +47,9 @@ export CC="arm-linux-androideabi-gcc $CFLAGS"
 export CXX="arm-linux-androideabi-g++ $CXXFLAGS"
 export AR="arm-linux-androideabi-ar"
 
+export HOSTARCH=arm-eabi
+export BUILDARCH=i386-linux-gnu
+
 if [ ! -e "$PYTHONSRC" ]; then
     tar zxvf Python-2.7.2.tgz
     mv $BUILDDIR/Python-2.7.2 $PYTHONSRC
@@ -59,7 +62,7 @@ if [ ! -e "$PYTHONSRC" ]; then
     patch -p1 -i "$BUILDDIR/patch/Python-2.7.2-enable_ipv6.patch"
     patch -p1 -i "$BUILDDIR/patch/Python-2.7.2-filesystemdefaultencoding.patch"
 
-    ./configure --host=arm-eabi --build=i386-linux-gnu --enable-ipv6 --enable-shared
+    ./configure --host=$HOSTARCH --build=$BUILDARCH --enable-ipv6 --enable-shared
     cat pyconfig.h \
     | sed -e '/HAVE_FDATASYNC/ c#undef HAVE_FDATASYNC' \
     | sed -e '/HAVE_KILLPG/ c#undef HAVE_KILLPG' \
@@ -70,7 +73,10 @@ if [ ! -e "$PYTHONSRC" ]; then
     
     $HOSTPGEN $PYTHONSRC/Grammar/Grammar $PYTHONSRC/Include/graminit.h $PYTHONSRC/Python/graminit.c
     cp $BUILDDIR/patch/build_py4a2.7.2.mk $PYTHONSRC/Android.mk
+   
 fi
+
+cd $BUILDDIR
 
 rm -rf $BUILDDIR/output* $BUILDDIR/include
 mkdir -p $BUILDDIR/output
