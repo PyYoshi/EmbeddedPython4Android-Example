@@ -432,15 +432,6 @@ LOCAL_SRC_FILES := Modules/imageop.c
 LOCAL_SHARED_LIBRARIES := libpython2.7
 include $(BUILD_SHARED_LIBRARY)
 
-#include $(CLEAR_VARS)
-#LOCAL_PATH := $(PYTHON_SRC_PATH)
-#LOCAL_C_INCLUDES := $(PYTHON_SRC_PATH) $(PYTHON_SRC_PATH)/Include $(PYTHON_SRC_PATH)/Modules
-#LOCAL_MODULE := readline
-#LOCAL_MODULE_FILENAME := readline
-#LOCAL_SRC_FILES := Modules/readline.c
-#LOCAL_SHARED_LIBRARIES := libpython2.7
-#include $(BUILD_SHARED_LIBRARY)
-
 include $(CLEAR_VARS)
 LOCAL_PATH := $(PYTHON_SRC_PATH)
 LOCAL_C_INCLUDES := $(PYTHON_SRC_PATH) $(PYTHON_SRC_PATH)/Include $(PYTHON_SRC_PATH)/Modules
@@ -569,14 +560,14 @@ LOCAL_SRC_FILES := Modules/binascii.c
 LOCAL_SHARED_LIBRARIES := libpython2.7
 include $(BUILD_SHARED_LIBRARY)
 
-#include $(CLEAR_VARS)
-#LOCAL_PATH := $(PYTHON_SRC_PATH)
-#LOCAL_C_INCLUDES := $(PYTHON_SRC_PATH) $(PYTHON_SRC_PATH)/Include $(PYTHON_SRC_PATH)/Modules
-#LOCAL_MODULE := bz2
-#LOCAL_MODULE_FILENAME := bz2
-#LOCAL_SRC_FILES := Modules/bz2module.c
-#LOCAL_SHARED_LIBRARIES := libpython2.7
-#include $(BUILD_SHARED_LIBRARY)
+include $(CLEAR_VARS)
+LOCAL_PATH := $(PYTHON_SRC_PATH)
+LOCAL_C_INCLUDES := $(PYTHON_SRC_PATH) $(PYTHON_SRC_PATH)/Include $(PYTHON_SRC_PATH)/Modules
+LOCAL_MODULE := bz2
+LOCAL_MODULE_FILENAME := bz2
+LOCAL_SRC_FILES := Modules/bz2module.c
+LOCAL_SHARED_LIBRARIES := libpython2.7 libbz
+include $(BUILD_SHARED_LIBRARY)
 
 include $(CLEAR_VARS)
 LOCAL_PATH := $(PYTHON_SRC_PATH)
@@ -678,4 +669,10 @@ LOCAL_SRC_FILES := Modules/linuxaudiodev.c
 LOCAL_SHARED_LIBRARIES := libpython2.7
 include $(BUILD_SHARED_LIBRARY)
 
-
+LOCAL_PATH := $(PYTHON_SRC_PATH)
+LOCAL_C_INCLUDES := $(PYTHON_SRC_PATH) $(PYTHON_SRC_PATH)/Include $(PYTHON_SRC_PATH)/Modules $(PYTHON_SRC_PATH)/Modules/_ctypes
+LOCAL_MODULE := _ctypes
+LOCAL_MODULE_FILENAME := _ctypes
+LOCAL_SRC_FILES := Modules/_ctypes/_ctypes.c Modules/_ctypes/callbacks.c Modules/_ctypes/callproc.c Modules/_ctypes/stgdict.c Modules/_ctypes/cfield.c Modules/_ctypes/malloc_closure.c 
+LOCAL_SHARED_LIBRARIES := libpython2.7 libffi
+include $(BUILD_SHARED_LIBRARY)
