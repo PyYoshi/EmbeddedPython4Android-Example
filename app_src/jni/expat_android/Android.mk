@@ -1,36 +1,25 @@
 LOCAL_PATH:= $(call my-dir)
 
-# We need to build this for both the device (as a shared library)
-# and the host (as a static library for tools to use).
+include $(CLEAR_VARS)
 
-common_SRC_FILES := \
+LOCAL_SRC_FILES := \
 	lib/xmlparse.c \
 	lib/xmlrole.c \
 	lib/xmltok.c
 
-common_CFLAGS := -Wall -Wmissing-prototypes -Wstrict-prototypes -fexceptions -DHAVE_EXPAT_CONFIG_H
+LOCAL_CFLAGS := -Wall -Wmissing-prototypes -Wstrict-prototypes -fexceptions -DHAVE_EXPAT_CONFIG_H
+LOCAL_C_INCLUDES := $(LOCAL_PATH)/lib $(LOCAL_PATH)
+EXPORT_C_INCLUDES := $(LOCAL_C_INCLUDES)
 
-common_C_INCLUDES += \
-	$(LOCAL_PATH)/lib
+LOCAL_MODULE := expat
+LOCAL_MODULE_FILENAME :=
 
-common_COPY_HEADERS_TO := libexpat
-common_COPY_HEADERS := \
-	lib/expat.h \
-	lib/expat_external.h
-
-# For the device
-# =====================================================
-
-include $(CLEAR_VARS)
-
-LOCAL_SRC_FILES := $(common_SRC_FILES)
-LOCAL_CFLAGS += $(common_CFLAGS)
-LOCAL_C_INCLUDES += $(common_C_INCLUDES)
-
-LOCAL_MODULE:= libexpat
-LOCAL_MODULE_TAGS := optional
-LOCAL_COPY_HEADERS_TO := $(common_COPY_HEADERS_TO)
-LOCAL_COPY_HEADERS := $(common_COPY_HEADERS)
+$(call __ndk_info, Building expat)
+$(call __ndk_info, PATH: $(LOCAL_PATH))
+$(call __ndk_info, MODULE: $(LOCAL_MODULE))
+$(call __ndk_info, FILENAME: $(LOCAL_MODULE_FILENAME))
+$(call __ndk_info, SRC: $(LOCAL_SRC_FILES))
+$(call __ndk_info, INCLUDES: $(LOCAL_C_INCLUDES))
+$(call __ndk_info, EXPORT: $(LOCAL_EXPORT_C_INCLUDES))
 
 include $(BUILD_SHARED_LIBRARY)
-
